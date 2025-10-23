@@ -41,6 +41,13 @@ typedef struct Timer	Timer;
 typedef struct Timers	Timers;
 typedef struct Uart	Uart;
 typedef struct Walkqid	Walkqid;
+typedef struct Atom	Atom;
+typedef struct AtomSpace	AtomSpace;
+typedef struct CognitiveState	CognitiveState;
+typedef struct Goal	Goal;
+typedef struct OpenCogKernel	OpenCogKernel;
+typedef struct PatternMatcher	PatternMatcher;
+typedef struct ReasoningEngine	ReasoningEngine;
 typedef int    Devgen(Chan*, char*, Dirtab*, int, int, Dir*);
 
 #pragma incomplete DevConf
@@ -508,6 +515,7 @@ struct Proc
 	void*		dbgreg;		/* User registers for devproc */
  	int		dbgstop;		/* don't run this kproc */
 	Edf*	edf;	/* if non-null, real-time proc, edf contains scheduling params */
+	CognitiveState*	cognitive;	/* OpenCog kernel-level cognitive state */
 };
 
 enum
@@ -627,6 +635,129 @@ enum
 };
 
 #define DEVDOTDOT -1
+
+/*
+ * OpenCog Kernel-based AGI Structures
+ * Cognitive processing as fundamental kernel services
+ */
+
+/* Atom types for distributed reasoning */
+enum AtomType
+{
+	NODE_ATOM = 0,
+	LINK_ATOM,
+	CONCEPT_NODE,
+	PREDICATE_NODE,
+	EVALUATION_LINK,
+	INHERITANCE_LINK,
+	SIMILARITY_LINK,
+	IMPLICATION_LINK,
+	EXECUTION_LINK,
+	PROCEDURAL_ATOM,
+	GOAL_ATOM,
+	SATISFACTION_LINK
+};
+
+/* Truth values for uncertain reasoning */
+struct TruthValue
+{
+	float strength;		/* confidence in truth */
+	float confidence;	/* confidence in strength */
+	float count;		/* evidence count */
+};
+
+/* Atomic knowledge representation */
+struct Atom
+{
+	ulong		id;		/* unique atom identifier */
+	int		type;		/* AtomType */
+	char*		name;		/* atom name/label */
+	struct TruthValue	tv;	/* truth value */
+	struct Atom**	outgoing;	/* outgoing links */
+	int		arity;		/* number of outgoing links */
+	struct Atom*	next;		/* hash chain */
+	Lock;
+};
+
+/* Distributed AtomSpace - knowledge base */
+struct AtomSpace  
+{
+	Lock;
+	Atom**		atoms;		/* hash table of atoms */
+	int		natoms;		/* number of atoms */
+	int		maxatoms;	/* hash table size */
+	ulong		next_id;	/* next atom ID */
+	struct AtomSpace*	parent;	/* parent atomspace */
+	struct AtomSpace**	children;/* child atomspaces */
+	int		nchildren;	/* number of children */
+};
+
+/* Cognitive goals and drives */
+struct Goal
+{
+	ulong		id;		/* unique goal ID */
+	char*		description;	/* goal description */
+	float		urgency;	/* goal urgency (0.0-1.0) */
+	float		importance;	/* goal importance (0.0-1.0) */
+	struct TruthValue	satisfaction; /* goal satisfaction level */
+	struct Atom*	target;		/* target atom */
+	struct Goal*	subgoals;	/* linked list of subgoals */
+	struct Goal*	next;		/* next goal in queue */
+	vlong		created;	/* creation time */
+	vlong		deadline;	/* goal deadline */
+	Lock;
+};
+
+/* Pattern matching for cognitive processing */
+struct PatternMatcher
+{
+	Lock;
+	struct Atom**	patterns;	/* pattern templates */
+	int		npatterns;	/* number of patterns */
+	float		(*similarity)(struct Atom*, struct Atom*);
+	int		(*unify)(struct Atom*, struct Atom*, struct Atom***);
+};
+
+/* Reasoning engine for inference */
+struct ReasoningEngine
+{
+	Lock;
+	struct AtomSpace*	atomspace;	/* knowledge base */
+	struct PatternMatcher*	pm;		/* pattern matcher */
+	struct Goal*		goals;		/* goal queue */
+	int		inference_steps;	/* steps per cycle */
+	float		confidence_threshold;	/* minimum confidence */
+	vlong		last_cycle;		/* last reasoning cycle */
+};
+
+/* Per-process cognitive state */
+struct CognitiveState
+{
+	Lock;
+	struct AtomSpace*	local_space;	/* process-local atomspace */
+	struct Goal*		active_goals;	/* currently active goals */
+	struct ReasoningEngine*	reasoner;	/* reasoning engine */
+	float		attention_level;	/* current attention (0.0-1.0) */
+	float		motivation;		/* motivation level */
+	struct Atom*	context;		/* current context */
+	vlong		think_time;		/* CPU time spent thinking */
+	int		cognitive_load;		/* current cognitive load */
+};
+
+/* Global OpenCog kernel state */
+struct OpenCogKernel
+{
+	Lock;
+	struct AtomSpace*	global_space;	/* global knowledge base */
+	struct ReasoningEngine*	global_reasoner; /* global reasoning */
+	struct Goal*		system_goals;	/* system-level goals */
+	struct PatternMatcher*	pm;		/* global pattern matcher */
+	int		cognitive_processes; /* number of cognitive processes */
+	vlong		total_atoms;	/* total atoms in system */
+	vlong		reasoning_cycles; /* total reasoning cycles */
+	float		system_attention; /* global attention allocation */
+	int		distributed_nodes; /* number of network nodes */
+};
 
 #pragma	varargck	argpos	print	1
 #pragma	varargck	argpos	snprint	3

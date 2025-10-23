@@ -316,3 +316,24 @@ void		hnputs(void*, ushort);
 vlong		nhgetv(void*);
 ulong		nhgetl(void*);
 ushort		nhgets(void*);
+
+/*
+ * OpenCog Kernel-based AGI Functions
+ */
+void		opencoginit(void);
+AtomSpace*	atomspace_create(int);
+Atom*		atom_create(AtomSpace*, int, char*, TruthValue*);
+Goal*		goal_create(ulong, char*, float, float);
+void		goal_add(Goal*, Goal*);
+PatternMatcher*	patternmatcher_create(void);
+ReasoningEngine* reasoner_create(AtomSpace*, PatternMatcher*);
+CognitiveState*	cognitive_create(void);
+void		cognitive_schedule(void);
+void		reasoning_cycle(ReasoningEngine*);
+void		inference_step(ReasoningEngine*);
+float		atom_similarity(Atom*, Atom*);
+int		atom_unify(Atom*, Atom*, Atom***);
+float		string_similarity(char*, char*);
+void		opencog_stats(void);
+void		proc_cognitive_init(Proc*);
+void		proc_cognitive_cleanup(Proc*);

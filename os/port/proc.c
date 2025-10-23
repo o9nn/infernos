@@ -217,6 +217,10 @@ loop:
 		edfunlock();
 	}
 */
+	
+	/* Integrate OpenCog cognitive scheduling */
+	cognitive_schedule();
+	
 	return p;
 }
 
@@ -277,6 +281,9 @@ newproc(void)
 	if(p->kstack == 0)
 		p->kstack = smalloc(KSTACK);
 	addprog(p);
+
+	/* Initialize OpenCog cognitive state for the process */
+	proc_cognitive_init(p);
 
 	return p;
 }
@@ -475,6 +482,9 @@ pexit(char*, int)
 		closeegrp(o->egrp);
 		closesigs(o->sigs);
 	}
+
+	/* Clean up OpenCog cognitive state */
+	proc_cognitive_cleanup(up);
 
 	/* Sched must not loop for this lock */
 	lock(&procalloc);

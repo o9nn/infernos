@@ -11,6 +11,7 @@ dev
 	dup
 	ssl
 	cap
+	opencog
 
 
 	ip	bootp ip ipv6 ipaux iproute arp netlog ptclbsum iprouter plan9 nullmedium pktmedium
@@ -81,6 +82,7 @@ port
 	latin1
 	nocache
 	nodynld
+	opencog
 	parse
 	pgrp
 	print
