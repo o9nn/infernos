@@ -93,10 +93,9 @@ main(void)
 	chandevreset();
 	doc("chandevreset...");
 
-	print("\nInferno - OpenCog Distributed AGI Operating System\n");
+	print("\nInferno with OpenCog AGI kernel extensions\n");
 	print("%s-%s \n\n",VERSION, conffile);
 	print("JIT Compilation Mode = %d\n",cflag);
-	print("Intelligence as Operating System Infrastructure\n\n");
 	
 	doc("opencoginit");
 	opencoginit();

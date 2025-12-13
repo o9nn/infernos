@@ -123,11 +123,8 @@ main(void)
 	links();
 	doc("chandevreset");
 	chandevreset();
-
-	eve = strdup("inferno");
 	
-	print("\nInferno - OpenCog Distributed AGI Operating System\n");
-	print("Intelligence as Operating System Infrastructure\n\n");
+	print("\nInferno with OpenCog AGI kernel extensions\n");
 	
 	doc("opencoginit");
 	opencoginit();
