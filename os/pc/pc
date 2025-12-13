@@ -11,6 +11,7 @@ dev
 	dup
 	ssl
 	cap
+	opencog
 
 	draw	screen vga vgax cga
 	pointer
