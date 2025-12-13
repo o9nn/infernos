@@ -23,12 +23,6 @@ typedef unsigned long long uvlong;
 typedef unsigned long uintptr;
 typedef uint Rune;
 
-/* Extended integer types */
-typedef unsigned char u8int;
-typedef unsigned short u16int;
-typedef unsigned int u32int;
-typedef unsigned long long u64int;
-
 /* Include the full kernel/system interface which provides all constants and functions */
 #include <kern.h>
 
