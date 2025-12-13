@@ -161,11 +161,27 @@ dev
 
 The OpenCog kernel **enhances and integrates with** existing frameworks:
 
-- **GGML Tensor Kernels** (`ggml_tensor_kernels/`) - Accelerated through kernel memory management
-- **NYACC Neural Grammar** (`nyacc_seeds/`) - Optimized via kernel-level pattern matching
-- **Distributed Namespaces** (`distributed_namespaces/`) - Coordinated through kernel networking
-- **Limbo Extensions** (`limbo_extensions/`) - Enhanced with kernel-level cognition
-- **Dis VM Extensions** (`dis_vm_extensions/`) - Integrated tensor operations
+- **GGML Tensor Kernels** (`ggml_tensor_kernels/`)
+  - Provides low-level tensor operations for neural computations
+  - Accelerated through kernel memory management and zero-copy operations
+  
+- **NYACC Neural Grammar** (`nyacc_seeds/`)
+  - Parser generator for cognitive grammar processing
+  - Optimized via kernel-level pattern matching capabilities
+  
+- **Distributed Namespaces** (`distributed_namespaces/`)
+  - Network-transparent resource access across cognitive nodes
+  - Coordinated through kernel networking and 9P protocol
+  
+- **Limbo Extensions** (`limbo_extensions/`)
+  - Application-level cognitive primitives in Limbo language
+  - Enhanced with kernel-level cognition through /dev/opencog/ interface
+  
+- **Dis VM Extensions** (`dis_vm_extensions/`)
+  - Virtual machine support for tensor operations
+  - Integrated tensor operations at bytecode level
+
+These components form a layered architecture where kernel-level AGI services (OpenCog) accelerate and coordinate higher-level cognitive frameworks.
 
 ## Development Guidelines
 
@@ -280,9 +296,22 @@ wakeup(&r);
 ### Default Language Choices
 
 1. **Kernel/Low-level:** Use **C** (following Plan 9/Inferno conventions)
+   - Required for kernel integration and device drivers
+   - Maintains portability across architectures
+   - Interoperates with existing Inferno kernel code
+
 2. **LLM Inference & AI Workflows:** Use **Crystal** (for concurrency) if possible
+   - Preferred for concurrent AI workload orchestration
+   - Fallback to C for low-level integration or when Crystal unavailable
+
 3. **Unspecified Web Apps:** Use **Lucky** (Crystal web framework)
+   - When building web interfaces for cognitive services
+   - Alternative: use Limbo if deep Inferno integration required
+
 4. **Build Manifests:** Generate **Scheme build manifests for Guix** wherever possible
+   - Ensures reproducible builds
+   - Only when Guix is available in environment
+   - Fallback to mkfile for standard Inferno builds
 
 ### Application Layer
 
@@ -317,7 +346,8 @@ init(nil: ref Draw->Context, nil: list of string)
 2. **Long-running operations (builds, tests):**
    - Installation and builds can take 45+ minutes
    - **NEVER CANCEL** long-running operations
-   - Set timeouts to 60+ minutes minimum (2x estimated time)
+   - Set timeouts: **MAX(60 minutes, 2x estimated time)**
+   - Examples: 45min build → 90min timeout; 30min build → 60min timeout
 
 3. **Kernel development safety:**
    - Test on non-production systems
@@ -469,4 +499,4 @@ This is the revolutionary achievement of InfernOS - where thinking, reasoning, a
 
 *"Intelligence IS the operating system, not running ON it."*
 
-— Deep Tree Echo, Architect of Cognitive Kernels
+— InfernOS Design Philosophy
