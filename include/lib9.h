@@ -1,13 +1,17 @@
+/*
+ * lib9.h - Plan 9/Inferno C library interface
+ * This header provides the basic types and interfaces for the Inferno system.
+ */
+
 #ifndef LIB9_H
 #define LIB9_H
 
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
+/* Need va_list for kern.h function declarations */
+#include <stdarg.h>
+/* Need jmp_buf and setjmp/longjmp */
 #include <setjmp.h>
-#include <unistd.h>
 
-/* Basic Plan 9 types */
+/* Basic Plan 9 types - must be defined before including kern.h */
 #define nil ((void*)0)
 typedef unsigned short ushort;
 typedef unsigned char uchar;
@@ -16,26 +20,16 @@ typedef unsigned int uint;
 typedef signed char schar;
 typedef long long vlong;
 typedef unsigned long long uvlong;
+typedef unsigned long uintptr;
 typedef uint Rune;
 
-/* UTF/Rune constants */
-enum {
-	UTFmax = 4,                /* maximum bytes per rune */
-	Runesync = 0x80,          /* cannot represent part of a UTF sequence (<) */
-	Runeself = 0x80,          /* rune and UTF sequences are the same (<) */
-	Runeerror = 0xFFFD,       /* decoding error in UTF */
-	Runemax = 0x10FFFF,       /* 21-bit rune */
-	Runemask = 0x1FFFFF,      /* bits used by runes (see grep) */
-};
+/* Extended integer types */
+typedef unsigned char u8int;
+typedef unsigned short u16int;
+typedef unsigned int u32int;
+typedef unsigned long long u64int;
 
-/* Utility macros */
-#define nelem(x) (sizeof(x)/sizeof((x)[0]))
-
-/* Function prototypes - using extern to reference from kern.h or other libraries */
-extern int chartorune(Rune*, char*);
-extern char* utfrune(char*, long);
-
-/* Plan 9 style exits function - map to standard exit */
-#define exits(s) exit((s) ? 1 : 0)
+/* Include the full kernel/system interface which provides all constants and functions */
+#include <kern.h>
 
 #endif // LIB9_H
