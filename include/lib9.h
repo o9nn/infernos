@@ -26,4 +26,4 @@ typedef uint Rune;
 /* Include the full kernel/system interface which provides all constants and functions */
 #include <kern.h>
 
-#endif // LIB9_H
+#endif /* LIB9_H */
