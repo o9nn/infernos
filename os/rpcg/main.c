@@ -145,7 +145,7 @@ main(void)
 
 	eve = strdup("inferno");
 
-	print("\nInferno %s - OpenCog Distributed AGI Operating System\n", VERSION);
+	print("\nInferno %s with OpenCog AGI kernel extensions\n", VERSION);
 	print("Vita Nuova\n");
 	print("conf %s (%lud) jit %d\n",conffile, kerndate, cflag);
 	

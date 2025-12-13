@@ -123,6 +123,12 @@ main(void)
 	links();
 	doc("chandevreset");
 	chandevreset();
+	
+	print("\nInferno with OpenCog AGI kernel extensions\n");
+	
+	doc("opencoginit");
+	opencoginit();
+	
 	doc("userinit");
 	userinit();
 	doc("schedinit");

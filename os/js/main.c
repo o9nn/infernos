@@ -93,9 +93,12 @@ main(void)
 	chandevreset();
 	doc("chandevreset...");
 
-	print("\nInferno Operating System\n");
+	print("\nInferno with OpenCog AGI kernel extensions\n");
 	print("%s-%s \n\n",VERSION, conffile);
 	print("JIT Compilation Mode = %d\n",cflag);
+	
+	doc("opencoginit");
+	opencoginit();
 
 	userinit();
 	doc("userinit...");

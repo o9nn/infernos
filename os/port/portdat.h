@@ -574,6 +574,8 @@ extern	uint	qiomaxatomic;
 extern	char*	statename[];
 extern	char*	sysname;
 extern	Talarm	talarm;
+extern	OpenCogKernel	opencog_kernel;
+extern	Lock	opencog_lock;
 
 /*
  *  action log

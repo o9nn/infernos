@@ -11,8 +11,8 @@
  */
 
 /* Global OpenCog kernel state */
-static OpenCogKernel opencog_kernel;
-static Lock opencog_lock;
+OpenCogKernel opencog_kernel;
+Lock opencog_lock;
 
 /* Initialize OpenCog kernel services */
 void

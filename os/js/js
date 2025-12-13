@@ -11,6 +11,7 @@ dev
 	ssl
 	draw
 	pointer
+	opencog
 
 	ip	bootp ip ipv6 ipaux iproute arp netlog ptclbsum iprouter plan9 nullmedium pktmedium
 	lance netif netaux ethermedium
