@@ -8,6 +8,11 @@ obj.map
 vc*.pdb
 *.a
 
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
 # yacc artifacts
 y.output
 y.tab.[ch]
