@@ -1,6 +1,11 @@
-#include "lib9.h"
+/*
+ * create.c - File creation function for POSIX systems
+ * Include system headers first to avoid conflicts with Inferno's open/create
+ */
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <fcntl.h>
+#include "lib9.h"
 
 int
 create(char *f, int mode, int perm)

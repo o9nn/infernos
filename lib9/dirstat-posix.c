@@ -1,8 +1,20 @@
-#include "lib9.h"
+/*
+ * dirstat-posix.c - Directory stat functions for POSIX systems
+ * 
+ * Note: We need to include system headers BEFORE lib9.h to avoid
+ * conflicts between Inferno's stat/fstat declarations and POSIX ones.
+ */
+
+/* Include system headers first to get POSIX stat/fstat */
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <pwd.h>
 #include <grp.h>
+#include <string.h>
+
+/* Now include lib9.h - the Inferno stat/fstat won't conflict since
+ * we already have the POSIX definitions */
+#include "lib9.h"
 
 static char nullstring[] = "";
 static char Enovmem[] = "out of memory";

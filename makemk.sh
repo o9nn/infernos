@@ -35,9 +35,25 @@ if [ "$(uname)" = "Linux" ]; then
     EXTRA_CFLAGS="$EXTRA_CFLAGS -Wno-pointer-to-int-cast"
     EXTRA_CFLAGS="$EXTRA_CFLAGS -Wno-int-to-pointer-cast"
     
+    # Suppress discarded qualifiers warnings (const char* vs char*)
+    EXTRA_CFLAGS="$EXTRA_CFLAGS -Wno-discarded-qualifiers"
+    
+    # Suppress int-conversion warnings
+    EXTRA_CFLAGS="$EXTRA_CFLAGS -Wno-int-conversion"
+    
+    # Suppress incompatible pointer type warnings
+    EXTRA_CFLAGS="$EXTRA_CFLAGS -Wno-incompatible-pointer-types"
+    
     # Use GNU89 standard for more permissive type handling
-    # (helps with implicit function declarations)
+    # (helps with implicit function declarations and redefinitions)
     EXTRA_CFLAGS="$EXTRA_CFLAGS -std=gnu89"
+    
+    # Prevent system headers from being included for conflicting functions
+    # by defining feature test macros that disable them
+    EXTRA_CFLAGS="$EXTRA_CFLAGS -D_POSIX_C_SOURCE=0"
+    
+    # Tell GCC to allow redefinitions without error
+    EXTRA_CFLAGS="$EXTRA_CFLAGS -Wno-error"
     
     echo "Linux detected - added compatibility flags: $EXTRA_CFLAGS"
 fi

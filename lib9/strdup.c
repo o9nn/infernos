@@ -1,12 +1,21 @@
+/*
+ * strdup.c - String duplication function
+ * Include system headers first for malloc
+ */
+#include <stdlib.h>
+#include <string.h>
 #include "lib9.h"
 
 char*
 strdup(const char *s) 
 {  
 	char *os;
+	size_t len;
 
-	os = malloc(strlen(s) + 1);
+	len = strlen(s) + 1;
+	os = malloc(len);
 	if(os == 0)
 		return 0;
-	return strcpy(os, s);
+	memcpy(os, s, len);
+	return os;
 }

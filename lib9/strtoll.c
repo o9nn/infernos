@@ -1,3 +1,8 @@
+/*
+ * strtoll.c - String to long long conversion
+ * Include system headers first
+ */
+#include <stdlib.h>
 #include "lib9.h"
 
 vlong

@@ -1,6 +1,10 @@
-#include "lib9.h"
-
+/*
+ * errstr-posix.c - Error string functions for POSIX systems
+ * Include system headers first
+ */
 #include <errno.h>
+#include <string.h>
+#include "lib9.h"
 
 static char errstring[ERRMAX];
 
