@@ -4,4 +4,5 @@ test_devopencog
 test_process_cognitive
 test_lib9_functions
 test_integration_stress
+test_tensor_logic
 *.o

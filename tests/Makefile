@@ -10,7 +10,8 @@ TESTS = test_opencog_kernel \
         test_devopencog \
         test_process_cognitive \
         test_lib9_functions \
-        test_integration_stress
+        test_integration_stress \
+        test_tensor_logic
 
 # Build all tests
 all: $(TESTS)
@@ -30,6 +31,9 @@ test_lib9_functions: test_lib9_functions.c
 
 test_integration_stress: test_integration_stress.c
 	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS)
+
+test_tensor_logic: test_tensor_logic.c
+	$(CC) $(CFLAGS) -I../agentic_cognitive_grammar/tensor_logic -o $@ $< $(LDFLAGS)
 
 # Run all tests
 run: all
@@ -68,6 +72,9 @@ run-lib9: test_lib9_functions
 run-integration: test_integration_stress
 	./test_integration_stress
 
+run-tensor: test_tensor_logic
+	./test_tensor_logic
+
 # Quick test (just build and run basic tests)
 quick: test_opencog_kernel test_lib9_functions
 	@echo "Running quick tests..."
@@ -98,9 +105,10 @@ help:
 	@echo "  run-process  - Run process cognitive tests"
 	@echo "  run-lib9     - Run lib9 utility tests"
 	@echo "  run-integration - Run integration/stress tests"
+	@echo "  run-tensor   - Run tensor logic tests"
 	@echo "  quick        - Run quick test subset"
 	@echo "  clean        - Remove built test executables"
 	@echo "  valgrind     - Run tests with valgrind"
 	@echo "  help         - Show this help message"
 
-.PHONY: all run run-kernel run-device run-process run-lib9 run-integration quick clean valgrind help
+.PHONY: all run run-kernel run-device run-process run-lib9 run-integration run-tensor quick clean valgrind help
