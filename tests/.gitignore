@@ -1,0 +1,8 @@
+# Ignore compiled test binaries
+test_opencog_kernel
+test_devopencog
+test_process_cognitive
+test_lib9_functions
+test_integration_stress
+test_tensor_logic
+*.o
