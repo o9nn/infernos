@@ -18,8 +18,34 @@ grep -s 'SYSTARG=Plan9' mkconfig || . ./mkconfig
 
 PLAT=$ROOT/$SYSTARG/$OBJTYPE
 
+# ============================================================
+# Linux Compatibility Flags
+# ============================================================
+# These flags are required to build Inferno OS on modern Linux
+# systems due to conflicts between Plan 9 types and POSIX/glibc.
+
+EXTRA_CFLAGS=""
+if [ "$(uname)" = "Linux" ]; then
+    # Suppress warnings about built-in function declaration mismatches
+    # (pow10, execl have different signatures in Inferno vs glibc)
+    EXTRA_CFLAGS="-Wno-builtin-declaration-mismatch"
+    
+    # Suppress pointer-to-int and int-to-pointer cast warnings
+    # (Inferno code assumes 32-bit pointers in some places)
+    EXTRA_CFLAGS="$EXTRA_CFLAGS -Wno-pointer-to-int-cast"
+    EXTRA_CFLAGS="$EXTRA_CFLAGS -Wno-int-to-pointer-cast"
+    
+    # Use GNU89 standard for more permissive type handling
+    # (helps with implicit function declarations)
+    EXTRA_CFLAGS="$EXTRA_CFLAGS -std=gnu89"
+    
+    echo "Linux detected - added compatibility flags: $EXTRA_CFLAGS"
+fi
+
+# ============================================================
+
 # you might need to adjust the CC, LD, AR, and RANLIB definitions after this point
-CC="p gcc -c -I$PLAT/include -I$ROOT/include -I$ROOT/utils/include"
+CC="p gcc -c $EXTRA_CFLAGS -I$PLAT/include -I$ROOT/include -I$ROOT/utils/include"
 LD="p gcc"
 AR="p ar crvs"
 RANLIB=":"	# some systems still require `ranlib'
