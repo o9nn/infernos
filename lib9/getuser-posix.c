@@ -1,5 +1,12 @@
-#include "lib9.h"
+/*
+ * getuser-posix.c - Get current user name for POSIX systems
+ * 
+ * This file avoids including lib9.h to prevent conflicts.
+ */
 #include <pwd.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
 
 char*
 getuser(void)

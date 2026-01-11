@@ -1,10 +1,19 @@
 /*
  * errstr-posix.c - Error string functions for POSIX systems
- * Include system headers first
+ * 
+ * This file avoids including lib9.h to prevent conflicts.
  */
 #include <errno.h>
 #include <string.h>
-#include "lib9.h"
+#include <stdarg.h>
+
+typedef unsigned int uint;
+
+#define ERRMAX 128
+
+/* External functions from lib9 */
+extern int vseprint(char*, char*, char*, va_list);
+extern char* utfecpy(char*, char*, char*);
 
 static char errstring[ERRMAX];
 

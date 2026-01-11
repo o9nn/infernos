@@ -1,20 +1,61 @@
 /*
  * dirstat-posix.c - Directory stat functions for POSIX systems
  * 
- * Note: We need to include system headers BEFORE lib9.h to avoid
- * conflicts between Inferno's stat/fstat declarations and POSIX ones.
+ * This file avoids including lib9.h to prevent conflicts between
+ * Inferno's function declarations and POSIX/glibc declarations.
+ * Instead, we include only what we need directly.
  */
 
-/* Include system headers first to get POSIX stat/fstat */
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <pwd.h>
 #include <grp.h>
 #include <string.h>
+#include <stdlib.h>
+#include <stdarg.h>
 
-/* Now include lib9.h - the Inferno stat/fstat won't conflict since
- * we already have the POSIX definitions */
-#include "lib9.h"
+/* Minimal definitions from lib9.h/kern.h that we need */
+#define nil ((void*)0)
+
+typedef unsigned int uint;
+typedef unsigned long ulong;
+typedef unsigned char uchar;
+typedef long long vlong;
+typedef unsigned long long uvlong;
+
+/* Qid structure */
+typedef struct Qid Qid;
+struct Qid {
+	uvlong path;
+	ulong vers;
+	uchar type;
+};
+
+/* Dir structure */
+typedef struct Dir Dir;
+struct Dir {
+	/* system-modified data */
+	ushort type;	/* server type */
+	uint dev;	/* server subtype */
+	/* file data */
+	Qid qid;	/* unique id from server */
+	ulong mode;	/* permissions */
+	ulong atime;	/* last read time */
+	ulong mtime;	/* last write time */
+	vlong length;	/* file length */
+	char *name;	/* last element of path */
+	char *uid;	/* owner name */
+	char *gid;	/* group name */
+	char *muid;	/* last modifier name */
+};
+
+/* Constants */
+#define QTDIR 0x80
+#define QTFILE 0x00
+
+/* External functions we need - declare with correct signatures */
+extern void werrstr(char*, ...);
+extern char* strrchr(const char*, int);
 
 static char nullstring[] = "";
 static char Enovmem[] = "out of memory";

@@ -1,11 +1,12 @@
 /*
  * seek.c - File seek function for POSIX systems
- * Include system headers first to avoid conflicts
+ * 
+ * This file avoids including lib9.h to prevent conflicts.
  */
 #include <sys/types.h>
-#include <fcntl.h>
 #include <unistd.h>
-#include "lib9.h"
+
+typedef long long vlong;
 
 vlong
 seek(int fd, vlong where, int from)

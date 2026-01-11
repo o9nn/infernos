@@ -1,4 +1,16 @@
-#include "lib9.h"
+/*
+ * rerrstr.c - Read error string function
+ * 
+ * This file avoids including lib9.h to prevent conflicts.
+ */
+
+typedef unsigned int uint;
+
+#define ERRMAX 128
+
+/* External functions */
+extern int errstr(char*, uint);
+extern char* utfecpy(char*, char*, char*);
 
 void
 rerrstr(char *buf, uint nbuf)

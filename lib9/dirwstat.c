@@ -1,10 +1,18 @@
 /*
  * dirwstat.c - Directory write stat functions for POSIX systems
- * Include system headers first to avoid conflicts
+ * 
+ * This file avoids including lib9.h to prevent conflicts.
  */
 #include <sys/types.h>
 #include <sys/stat.h>
-#include "lib9.h"
+
+/* Minimal Dir structure definition */
+typedef struct Dir Dir;
+struct Dir {
+	unsigned short type;
+	unsigned int dev;
+	/* ... other fields not needed for these stubs */
+};
 
 int
 dirfwstat(int fd, Dir *d)

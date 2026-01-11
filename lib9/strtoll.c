@@ -1,9 +1,10 @@
 /*
  * strtoll.c - String to long long conversion
- * Include system headers first
+ * 
+ * This file avoids including lib9.h to prevent conflicts.
  */
-#include <stdlib.h>
-#include "lib9.h"
+
+typedef long long vlong;
 
 vlong
 strtoll(const char *nptr, char **endptr, int base)

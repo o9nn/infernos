@@ -1,10 +1,10 @@
 /*
  * strdup.c - String duplication function
- * Include system headers first for malloc
+ * 
+ * This file avoids including lib9.h to prevent conflicts.
  */
 #include <stdlib.h>
 #include <string.h>
-#include "lib9.h"
 
 char*
 strdup(const char *s) 

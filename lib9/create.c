@@ -1,11 +1,18 @@
 /*
  * create.c - File creation function for POSIX systems
- * Include system headers first to avoid conflicts with Inferno's open/create
+ * 
+ * This file avoids including lib9.h to prevent conflicts.
  */
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include "lib9.h"
+
+/* Inferno mode constants */
+#define OREAD   0
+#define OWRITE  1
+#define ORDWR   2
+#define OEXEC   3
+#define DMDIR   0x80000000
 
 int
 create(char *f, int mode, int perm)
