@@ -99,9 +99,10 @@ jobs:
           cd ${{ github.workspace }}
           
           # mkconfig is intentionally edited by the 'Configure mkconfig for CI'
-          # step (sed -i edits to ROOT/SYSHOST/OBJTYPE), so restore it before
-          # the cleanliness check.
+          # step (sed -i edits to ROOT/SYSHOST/OBJTYPE) and the mk binary is
+          # rebuilt by makemk.sh, so restore both before the cleanliness check.
           git checkout -- mkconfig 2>/dev/null || true
+          git checkout -- ${{ matrix.syshost }}/${{ matrix.objtype }}/bin/mk 2>/dev/null || true
           
           # Check for uncommitted changes
           if ! git diff --quiet; then
