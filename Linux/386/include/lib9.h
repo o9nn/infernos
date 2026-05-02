@@ -1,8 +1,8 @@
 #define _LARGEFILE64_SOURCE	1
 #define _FILE_OFFSET_BITS 64
+#define _POSIX_SOURCE
 #include <sys/types.h>
 #include <sys/stat.h>
-#define _POSIX_SOURCE
 #include <stdlib.h>
 #include <stdarg.h>
 #include <unistd.h>
@@ -24,6 +24,11 @@ typedef struct Proc Proc;
 
 typedef unsigned char	uchar;
 typedef signed char	schar;
+/*
+ * Linux's sys/types.h under _POSIX_SOURCE does not provide BSD-style
+ * ushort/uint/ulong (unlike Irix which uses sys/bsd_types.h for these).
+ * Define them explicitly here.
+ */
 typedef unsigned short	ushort;
 typedef unsigned int	uint;
 typedef unsigned long	ulong;
@@ -250,7 +255,7 @@ struct Tm {
 	char	zone[4];
 	int	tzoff;
 };
-	
+
 /*
  * one-of-a-kind
  */
