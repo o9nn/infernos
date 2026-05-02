@@ -5,6 +5,18 @@ typedef unsigned long size_t;
 #define	assert(x)	if(x){}else _assert("x")
 
 /*
+ * Suppress "unused variable" warnings for Plan 9/Inferno builds on GCC.
+ * On Plan 9 native compilers these were built-in directives; here they
+ * are defined as no-op macros that cast their arguments to void.
+ */
+#ifndef USED
+#define	USED(...)	((void)(__VA_ARGS__))
+#endif
+#ifndef SET
+#define	SET(x)		((x) = 0)
+#endif
+
+/*
  * mem routines
  */
 extern	void*	memccpy(void*, void*, int, ulong);
