@@ -4,8 +4,13 @@
  * implementation of the current-process variable `up'.
  */
 
-extern	Proc**	Xup;
-#define	up	(*Xup)
+/*
+ * The current-process pointer `up' is stored in pthread thread-specific
+ * data when the emulator is built with the USE_PTHREADS scheduler
+ * (the default on Linux).  `getup()' is provided by emu/port/kproc-pthreads.c.
+ */
+extern	Proc*	getup(void);
+#define	up	(getup())
 
 typedef	struct	FPU	FPU;
 
