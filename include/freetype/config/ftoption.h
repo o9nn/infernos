@@ -4,7 +4,7 @@
  *
  *   User-selectable configuration macros (specification only).
  *
- * Copyright (C) 1996-2024 by
+ * Copyright (C) 1996-2023 by
  * David Turner, Robert Wilhelm, and Werner Lemberg.
  *
  * This file is part of the FreeType project, and may only be used,
@@ -109,7 +109,7 @@ FT_BEGIN_HEADER
    * ```
    *
    */
-/*#define FT_CONFIG_OPTION_ENVIRONMENT_PROPERTIES*/
+#define FT_CONFIG_OPTION_ENVIRONMENT_PROPERTIES
 
 
   /**************************************************************************
@@ -180,7 +180,7 @@ FT_BEGIN_HEADER
    *
    *   Define this macro if you want to enable this 'feature'.
    */
-/*#define FT_CONFIG_OPTION_USE_LZW*/
+#define FT_CONFIG_OPTION_USE_LZW
 
 
   /**************************************************************************
@@ -361,7 +361,7 @@ FT_BEGIN_HEADER
    *
    *   Note that the 'FOND' resource isn't checked.
    */
-/*#define FT_CONFIG_OPTION_MAC_FONTS*/
+#define FT_CONFIG_OPTION_MAC_FONTS
 
 
   /**************************************************************************
@@ -538,7 +538,7 @@ FT_BEGIN_HEADER
    *
    *   More details on the hooks can be found in file `otsvg.h`.
    */
-/*#define FT_CONFIG_OPTION_SVG*/
+#define FT_CONFIG_OPTION_SVG
 
 
   /**************************************************************************
@@ -578,7 +578,7 @@ FT_BEGIN_HEADER
    * outlines (from the 'COLR'/'CPAL' tables) in all formats using the 'sfnt'
    * module (namely TrueType~& OpenType).
    */
-/*#define TT_CONFIG_OPTION_COLOR_LAYERS*/
+#define TT_CONFIG_OPTION_COLOR_LAYERS
 
 
   /**************************************************************************
@@ -647,7 +647,7 @@ FT_BEGIN_HEADER
    * Do not `#undef` this macro here, since the build system might define it
    * for certain configurations only.
    */
-/*#define TT_CONFIG_OPTION_BYTECODE_INTERPRETER*/
+#define TT_CONFIG_OPTION_BYTECODE_INTERPRETER
 
 
   /**************************************************************************
@@ -710,7 +710,7 @@ FT_BEGIN_HEADER
    * 'avar' tables).  Tagged 'Font Variations', this is now part of OpenType
    * also.  This has many similarities to Type~1 Multiple Masters support.
    */
-/*#define TT_CONFIG_OPTION_GX_VAR_SUPPORT*/
+#define TT_CONFIG_OPTION_GX_VAR_SUPPORT
 
 
   /**************************************************************************
@@ -736,7 +736,7 @@ FT_BEGIN_HEADER
    * Define `TT_CONFIG_OPTION_BDF` if you want to include support for an
    * embedded 'BDF~' table within SFNT-based bitmap formats.
    */
-/*#define TT_CONFIG_OPTION_BDF*/
+#define TT_CONFIG_OPTION_BDF
 
 
   /**************************************************************************
@@ -755,22 +755,6 @@ FT_BEGIN_HEADER
 #ifndef TT_CONFIG_OPTION_MAX_RUNNABLE_OPCODES
 #define TT_CONFIG_OPTION_MAX_RUNNABLE_OPCODES  1000000L
 #endif
-
-
-  /**************************************************************************
-   *
-   * Option `TT_CONFIG_OPTION_GPOS_KERNING` enables a basic GPOS kerning
-   * implementation (for TrueType fonts only).  With this defined, FreeType
-   * is able to get kerning pair data from the GPOS 'kern' feature as well as
-   * legacy 'kern' tables; without this defined, FreeType will only be able
-   * to use legacy 'kern' tables.
-   *
-   * Note that FreeType does not support more advanced GPOS layout features;
-   * even the 'kern' feature implemented here doesn't handle more
-   * sophisticated kerning variants.  Use a higher-level library like
-   * HarfBuzz instead for that.
-   */
-/* #define TT_CONFIG_OPTION_GPOS_KERNING */
 
 
   /*************************************************************************/
