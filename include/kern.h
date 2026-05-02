@@ -356,7 +356,7 @@ extern	char*	mktemp(char*);
 extern	double	modf(double, double*);
 extern	int	netcrypt(void*, void*);
 /*extern	void	notejmp(void*, jmp_buf, int);*/
-extern	void	perror(char*);
+extern	void	perror(const char*);
 extern  int	postnote(int, int, char *);
 extern	double	pow10(int);
 extern	double	ipow10(int);
@@ -555,7 +555,7 @@ extern	long	pread(int, void*, long, vlong);
 extern	long	pwrite(int, void*, long, vlong);
 extern	long	read(int, void*, long);
 extern	long	readn(int, void*, long);
-extern	int	remove(char*);
+extern	int	remove(const char*);
 extern	void*	sbrk(ulong);
 extern	vlong	seek(int, vlong, int);
 extern	long	segattach(int, char*, void*, ulong);
@@ -565,8 +565,10 @@ extern	int	segflush(void*, ulong);
 extern	int	segfree(void*, ulong);
 extern	int	sleep(long);
 extern	int	stat(char*, uchar*, int);
+#ifndef __linux__
 extern	Waitmsg*	wait(void);
 extern	int	waitpid(void);
+#endif
 extern	long	write(int, void*, long);
 extern	long	write9p(int, void*, long);
 extern	int	wstat(char*, char*);
