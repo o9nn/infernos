@@ -460,3 +460,6 @@ extern char *argv0;
  */
 
 #define	setbinmode()
+
+/* x86 FPU control/status register constants and function declarations */
+#include "u.h"
