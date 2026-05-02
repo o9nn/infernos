@@ -98,6 +98,11 @@ jobs:
         run: |
           cd ${{ github.workspace }}
           
+          # mkconfig is intentionally edited by the 'Configure mkconfig for CI'
+          # step (sed -i edits to ROOT/SYSHOST/OBJTYPE), so restore it before
+          # the cleanliness check.
+          git checkout -- mkconfig 2>/dev/null || true
+          
           # Check for uncommitted changes
           if ! git diff --quiet; then
             echo 'ERROR: Git working directory was not clean after build'
