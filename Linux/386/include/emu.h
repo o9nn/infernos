@@ -19,3 +19,5 @@ struct FPU
 
 typedef sigjmp_buf osjmpbuf;
 #define	ossetjmp(buf)	sigsetjmp(buf, 1)
+
+#define	KSTACK	(32*1024)	/* kernel stack size; increased for Linux gethost* functions */

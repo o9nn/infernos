@@ -11,11 +11,17 @@
 #include	<limits.h>
 #include	<errno.h>
 #include	<semaphore.h>
+#include	<sched.h>
 
 #ifdef __NetBSD__
-#include	<sched.h>
 #define pthread_yield() (sched_yield())
 #define PTHREAD_STACK_MIN ((size_t)sysconf(_SC_THREAD_STACK_MIN))
+#endif
+
+#ifdef __linux__
+#define pthread_yield() sched_yield()
+/* pthread_kill requires _POSIX_C_SOURCE>=199506L but _POSIX_SOURCE suppresses that */
+extern int pthread_kill(pthread_t, int);
 #endif
 
 
@@ -89,7 +95,8 @@ tramp(void *arg)
 	os->self = pthread_self();
 	if(pthread_setspecific(prdakey, arg))
 		panic("set specific data failed in tramp\n");
-	if(0){
+#if 0
+	{
 		pthread_attr_t attr;
 		memset(&attr, 0, sizeof(attr));
 		pthread_getattr_np(pthread_self(), &attr);
@@ -97,6 +104,7 @@ tramp(void *arg)
 		pthread_attr_getstacksize(&attr, &s);
 		print("stack size = %d\n", s);
 	}
+#endif
 	p->func(p->arg);
 	pexit("{Tramp}", 0);
 	return nil;
